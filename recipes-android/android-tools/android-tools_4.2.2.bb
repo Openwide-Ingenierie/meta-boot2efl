@@ -27,7 +27,7 @@ SRC_URI = " \
     file://adbd-disable-client-authentication.patch \
     file://disable-selinux-support.patch \
     file://remove-libselinux.patch;patchdir=.. \
-    file://android-tools-adbd.service
+    file://android-tools-adbd.service \
 "
 S = "${WORKDIR}/android-tools"
 
@@ -60,6 +60,7 @@ do_install() {
 
     install -d ${D}${systemd_unitdir}/system
     install -m 0644 ${WORKDIR}/android-tools-adbd.service  ${D}${systemd_unitdir}/system
+    install -d ${D}${sysconfdir}/systemd/system/basic.target.wants
     ln -sf ${systemd_unitdir}/systemd/system/android-tools-adbd.service ${D}${sysconfdir}/systemd/system/basic.target.wants/android-tools-adbd.service
 }
 
